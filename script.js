@@ -8,13 +8,14 @@ const scoreDisplay = document.getElementById('score');
 const highScore = document.getElementById('highScore');
 
 let score = 20;
+let high = 0;
 scoreDisplay.textContent = score;
+
+let randNum = Math.floor(Math.random() * 20) + 1;
+console.log(randNum);
 
 // * Start the game
 const startGame = () => {
-  const randNum = Math.floor(Math.random() * 20) + 1;
-  console.log(randNum);
-
   checkBtn.addEventListener('click', () => {
     const enteredNum = input.value;
     if (!enteredNum) {
@@ -33,7 +34,11 @@ const startGame = () => {
         answerNum.textContent = enteredNum;
         document.body.style.background = '#60b347';
         document.getElementById('answerNum').style.width = '30rem';
-        highScore.textContent = score;
+
+        if (score > high) {
+          high = score;
+          highScore.textContent = high;
+        }
       }
     } else {
       message.textContent = 'You Lost the game';
@@ -47,6 +52,8 @@ again.addEventListener('click', () => {
 });
 
 const resetGame = () => {
+  randNum = Math.floor(Math.random() * 20) + 1;
+  console.log(randNum);
   answerNum.textContent = '?';
   input.value = '';
   message.textContent = 'Start guessing';
